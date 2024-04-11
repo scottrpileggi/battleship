@@ -1,25 +1,43 @@
-let rs = require("readline-sync");
+var rs = require("readline-sync");
 
-function createGrid() {
-  const letters = [..."ABC"];
+function createGrid(size) {
+  const letters = [..."ABCABCDEFGHIJKLMNOPQRSTUVWXYZ"];
   let arr = [];
-
-  for (let char of letters) {
-    for (let i = 1; i <= 3; i++) {
-      arr.push({ row: char, column: i, hasShip: false, hasBeenHit: false });
+  for (let i = 0; i < size; i++) {
+    for (let j = 1; j <= size; j++) {
+      arr.push({
+        row: letters[i],
+        column: j,
+        hasShip: false,
+        hasBeenHit: false,
+      });
     }
   }
   return arr;
 }
-let gameGrid = createGrid();
 
-function shipGenerator() {
-  const randomSpot1 = gameGrid[Math.floor(Math.random() * gameGrid.length)];
-  const randomSpot2 = gameGrid[Math.floor(Math.random() * gameGrid.length)];
+let gameGrid = createGrid(3);
 
-  randomSpot1.hasShip = true;
-  randomSpot2.hasShip = true;
+function selectShipSpots(array, numShips) {
+  let shipSpots = array
+    .sort(() => Math.random() - Math.random())
+    .slice(0, numShips);
+  return shipSpots;
+}
+
+function placeShips() {
+  const shipSpots = selectShipSpots(gameGrid, 2);
+
+  for (let spot of gameGrid) {
+    if (shipSpots.includes(spot)) {
+      spot.hasShip = true;
+    }
+  }
   return gameGrid;
 }
 
-console.log(shipGenerator());
+finalgameGrid = placeShips();
+
+console.log(selectShipSpots(gameGrid, 2));
+
+console.log(finalgameGrid);
