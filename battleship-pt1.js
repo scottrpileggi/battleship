@@ -14,11 +14,12 @@ function createGrid() {
 let gameGrid = createGrid();
 
 function shipGenerator() {
-  for (let i = 0; i < 2; i++) {
-    randomSpot.hasBeenHit = true;
-  }
+  const randomSpot1 = gameGrid[Math.floor(Math.random() * gameGrid.length)];
+  const randomSpot2 = gameGrid[Math.floor(Math.random() * gameGrid.length)];
+
+  randomSpot1.hasShip = true;
+  randomSpot2.hasShip = true;
   return gameGrid;
 }
 
-const randomSpot = gameGrid[Math.floor(Math.random() * gameGrid.length)];
 console.log(shipGenerator());
