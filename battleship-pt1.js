@@ -1,7 +1,7 @@
 var rs = require("readline-sync");
 
-function createGrid(size) {
-  const letters = [..."ABCABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+function createGrid(size = 3) {
+  const letters = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
   let arr = [];
   for (let i = 0; i < size; i++) {
     for (let j = 1; j <= size; j++) {
@@ -16,7 +16,11 @@ function createGrid(size) {
   return arr;
 }
 
-let gameGrid = createGrid(3);
+let emptyGameGrid = createGrid();
+console.log(emptyGameGrid);
+
+console.log("Press any key to start the game.");
+rs.keyInPause();
 
 function selectShipSpots(array, numShips) {
   let shipSpots = array
@@ -25,19 +29,21 @@ function selectShipSpots(array, numShips) {
   return shipSpots;
 }
 
-function placeShips() {
-  const shipSpots = selectShipSpots(gameGrid, 2);
+function placeSmallShips(numShips) {
+  const shipSpots = selectShipSpots(emptyGameGrid, numShips);
 
-  for (let spot of gameGrid) {
+  for (let spot of emptyGameGrid) {
     if (shipSpots.includes(spot)) {
       spot.hasShip = true;
     }
   }
-  return gameGrid;
+  return emptyGameGrid;
 }
 
-finalgameGrid = placeShips();
+let gameReadyGrid = placeSmallShips(2);
 
-console.log(selectShipSpots(gameGrid, 2));
+console.log(gameReadyGrid);
 
-console.log(finalgameGrid);
+function getInput() {
+  let userInput = rs.question("Enter a location to strike ie 'A2' ");
+}
