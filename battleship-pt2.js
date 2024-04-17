@@ -3,7 +3,7 @@ var rs = require("readline-sync");
 const battleShip = () => {
   rs.keyInPause("Press any key to start the game.");
 
-  const createGrid = (size = 3) => {
+  const createGrid = (size = 10) => {
     const letters = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
     let arr = [];
     for (let i = 0; i < size; i++) {
@@ -60,6 +60,8 @@ const battleShip = () => {
           spot.hasBeenHit = true;
           shipsLeft -= 1;
           console.log(gameGrid);
+
+          // This makes the printed statement use proper grammar depending on the quantity of ships remaining..
           if (shipsLeft === 1) {
             console.log(
               `Hit! You have sunk a battleship. ${shipsLeft} ship remaining.`
