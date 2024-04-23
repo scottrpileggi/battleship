@@ -21,75 +21,29 @@ const battleShip = () => {
 
   let gameGrid = createGrid();
 
-  function selectShipSpots(array, numShips) {
-    let shipSpots = array
+  const shipGenerator = (str, size) => {
+    return [{ name: `${str}`, size: size, spotsOccupied: [] }];
+  };
+
+  let shipsRemaining = 5;
+  let ship1 = shipGenerator("small", 2);
+  let ship2 = shipGenerator("medium-1", 3);
+  let ship3 = shipGenerator("medium-2", 3);
+  let ship4 = shipGenerator("large", 4);
+  let ship5 = shipGenerator("jumbo", 5);
+
+  function randomSelector(array) {
+    let randomElem = array
       .sort(() => Math.random() - Math.random())
-      .slice(0, numShips);
-    return shipSpots;
+      .slice(0, 1);
+    return randomElem;
   }
 
-  function placeSmallShips(numShips) {
-    const shipSpots = selectShipSpots(gameGrid, numShips);
-
-    for (let spot of gameGrid) {
-      if (shipSpots.includes(spot)) {
-        spot.hasShip = true;
-      }
-    }
-    return gameGrid;
-  }
-
-  placeSmallShips(2);
-
-  let shipsLeft = 2;
-
-  console.log(gameGrid);
-
-  while (shipsLeft > 0) {
-    function getInput() {
-      let userInput = rs.question("Enter a location to strike ie 'A2' ");
-      return userInput;
-    }
-    let userInput = getInput();
-
-    for (let spot of gameGrid) {
-      if (userInput === `${spot.row}${spot.column}`) {
-        // If user hits a ship:
-        if (spot.hasShip === true) {
-          spot.hasShip = false;
-          spot.hasBeenHit = true;
-          shipsLeft -= 1;
-          console.log(gameGrid);
-
-          // This makes the printed statement use proper grammar depending on the quantity of ships remaining..
-          if (shipsLeft === 1) {
-            console.log(
-              `Hit! You have sunk a battleship. ${shipsLeft} ship remaining.`
-            );
-          } else {
-            console.log(
-              `Hit! You have sunk a battleship. ${shipsLeft} ships remaining.`
-            );
-          }
-
-          // If user misses on a new target
-        } else if (spot.hasBeenHit === false) {
-          console.log("Miss!");
-          spot.hasBeenHit = true;
-
-          // If user misses on a target that's has been previously selected:
-        } else {
-          console.log("Miss! You've already hit this target. try again...");
-        }
-      }
-    }
-  }
-
-  let playAgain = rs.keyInYN(
-    "You have destroyed all battleships. Would you like to play again? Y/N"
-  );
-
-  playAgain ? battleShip() : console.log("Thanks for playing!");
+  const randomDirection = () => {
+    let directionArray = ["up", "down", "left", "right"];
+    let randomDirection = randomSelector(directionArray);
+    return randomDirection;
+  };
 };
 
 battleShip();
