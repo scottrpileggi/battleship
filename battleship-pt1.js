@@ -22,10 +22,7 @@ const battleShip = () => {
   let gameGrid = createGrid();
 
   function selectShipSpots(array, numShips) {
-    let shipSpots = array
-      .sort(() => Math.random() - Math.random())
-      .slice(0, numShips);
-    return shipSpots;
+    return array.sort(() => Math.random() - Math.random()).slice(0, numShips);
   }
 
   function placeSmallShips(numShips) {
@@ -59,7 +56,6 @@ const battleShip = () => {
           spot.hasShip = false;
           spot.hasBeenHit = true;
           shipsLeft -= 1;
-          console.log(gameGrid);
           if (shipsLeft === 1) {
             console.log(
               `Hit! You have sunk a battleship. ${shipsLeft} ship remaining.`
