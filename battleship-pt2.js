@@ -71,20 +71,15 @@ const battleShip = () => {
         for (let elem of gameGrid) {
           if (spot === `${elem.row}${elem.column}`) {
             if (elem.hasShip !== null) {
-              spot = null;
-            }
-
-            if (selectedSpots.includes(null)) {
               return shipPlacer(ship);
-            } else {
-              for (let spot of selectedSpots) {
-                for (let elem of gameGrid) {
-                  if (spot === `${elem.row}${elem.column}`) {
-                    elem.hasShip = ship.name;
-                  }
-                }
-              }
             }
+          }
+        }
+      }
+      for (let spot of selectedSpots) {
+        for (let elem of gameGrid) {
+          if (spot === `${elem.row}${elem.column}`) {
+            elem.hasShip = ship.name;
           }
         }
       }
