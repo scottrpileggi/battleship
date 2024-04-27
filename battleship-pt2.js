@@ -62,24 +62,7 @@ const battleShip = () => {
           selectedSpots.push(`${letters[i]}${colNum}`);
         }
       }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            if (elem.hasShip !== null) {
-              return shipPlacer(ship);
-            }
-          }
-        }
-      }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            elem.hasShip = ship.name;
-          }
-        }
-      }
     }
-
     // Run this code block if the random direction is 'down'...
     if (direction === "down") {
       if (letterIndex + shipSize > letters.length) {
@@ -87,22 +70,6 @@ const battleShip = () => {
       } else {
         for (let i = letterIndex; i < letterIndex + shipSize; i++) {
           selectedSpots.push(`${letters[i]}${colNum}`);
-        }
-      }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            if (elem.hasShip !== null) {
-              return shipPlacer(ship);
-            }
-          }
-        }
-      }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            elem.hasShip = ship.name;
-          }
         }
       }
     }
@@ -115,24 +82,7 @@ const battleShip = () => {
           selectedSpots.push(`${startingPoint.row}${i}`);
         }
       }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            if (elem.hasShip !== null) {
-              return shipPlacer(ship);
-            }
-          }
-        }
-      }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            elem.hasShip = ship.name;
-          }
-        }
-      }
     }
-
     // Run this code block if the random direction is 'right'...
     if (direction === "right") {
       if (colNum + shipSize > gridArea) {
@@ -142,20 +92,22 @@ const battleShip = () => {
           selectedSpots.push(`${startingPoint.row}${i}`);
         }
       }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            if (elem.hasShip !== null) {
-              return shipPlacer(ship);
-            }
+    }
+
+    // Final check spaces
+    for (let spot of selectedSpots) {
+      for (let elem of gameGrid) {
+        if (spot === `${elem.row}${elem.column}`) {
+          if (elem.hasShip !== null) {
+            return shipPlacer(ship);
           }
         }
       }
-      for (let spot of selectedSpots) {
-        for (let elem of gameGrid) {
-          if (spot === `${elem.row}${elem.column}`) {
-            elem.hasShip = ship.name;
-          }
+    }
+    for (let spot of selectedSpots) {
+      for (let elem of gameGrid) {
+        if (spot === `${elem.row}${elem.column}`) {
+          elem.hasShip = ship.name;
         }
       }
     }
