@@ -4,8 +4,9 @@ const battleShip = () => {
   rs.keyInPause("Press any key to start the game.");
 
   const letters = [..."ABCDEFGHIJ"];
+  const gridArea = 10; // 10 x 10
 
-  const createGrid = (size = 10) => {
+  const createGrid = (size = gridArea) => {
     let arr = [];
     for (let i = 0; i < size; i++) {
       for (let j = 1; j <= size; j++) {
@@ -36,7 +37,7 @@ const battleShip = () => {
   }
 
   const randomDirection = () => {
-    return randomSelector([/* "up", "down" */ "left" /* "right" */]);
+    return randomSelector([/* "up" ,  */ "down" /* , "left", "right" */]);
   };
 
   const shipPlacer = (ship) => {
@@ -48,19 +49,17 @@ const battleShip = () => {
     let letterIndex = letters.indexOf(startingPoint.row);
 
     // If starting space is already occupied by another ship, restart the function and try a different random spot..
-    if (startingPoint.hasShip === true) {
+    if (startingPoint.hasShip !== null) {
       return shipPlacer(ship);
     }
 
     // Run this code block if the random direction is 'up'...
     if (direction === "up") {
       if (shipSize > letterIndex + 1) {
-        /*         console.log(`letter array length: ${letters.length}`);
         console.log(`startingPoint = ${startingPoint.row}`);
         console.log(`letter index: ${letterIndex + 1}`);
         console.log(`ship size: ${shipSize}`);
         console.log(`${startingPoint.row} won't provide enough space`);
-        return "done"; */
         return shipPlacer(ship);
       } else {
         for (let i = letterIndex; i > letterIndex - shipSize; i--) {
@@ -160,12 +159,51 @@ const battleShip = () => {
         }
       }
     }
+    // Run this code block if the random direction is 'right'...
+    if (direction === "right") {
+      if (colNum + shipSize > gridArea) {
+        console.log(`column: ${colNum}`);
+        console.log(`ship size: ${shipSize}`);
+        console.log(`${colNum} won't provide enough space`);
+        return shipPlacer(ship);
+      } else {
+        for (let i = colNum; i < colNum + shipSize; i++) {
+          selectedSpots.push(`${startingPoint.row}${i}`);
+        }
+      }
+      for (let spot of selectedSpots) {
+        for (let elem of gameGrid) {
+          if (spot === `${elem.row}${elem.column}`) {
+            if (elem.hasShip !== null) {
+              spot = null;
+            }
+
+            if (selectedSpots.includes(null)) {
+              return shipPlacer(ship);
+            } else {
+              for (let spot of selectedSpots) {
+                for (let elem of gameGrid) {
+                  if (spot === `${elem.row}${elem.column}`) {
+                    elem.hasShip = ship.name;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     ship.spaces = selectedSpots;
   };
+  console.log(gameGrid);
   shipPlacer(ships[4]);
+  console.log(gameGrid);
   shipPlacer(ships[3]);
+  console.log(gameGrid);
   shipPlacer(ships[2]);
+  console.log(gameGrid);
   shipPlacer(ships[1]);
+  console.log(gameGrid);
   shipPlacer(ships[0]);
   console.log(gameGrid);
   console.log(ships);
