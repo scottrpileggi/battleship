@@ -40,8 +40,6 @@ const battleShip = () => {
 
   let shipsLeft = 2;
 
-  console.log(gameGrid);
-
   while (shipsLeft > 0) {
     function getInput() {
       let userInput = rs.question("Enter a location to strike ie 'A2' ");

@@ -121,7 +121,6 @@ const battleShip = () => {
   shipPlacer(ships[0]);
 
   while (shipsRemaining > 0) {
-    console.log(ships);
     function getInput() {
       let userInput = rs.question("Enter a location to strike ie 'A2' ");
       return userInput;
