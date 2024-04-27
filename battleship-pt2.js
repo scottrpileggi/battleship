@@ -37,7 +37,7 @@ const battleShip = () => {
   }
 
   const randomDirection = () => {
-    return randomSelector([/* "up" ,  */ "down" /* , "left", "right" */]);
+    return randomSelector(["up" /*  ,  "down" , "left", "right" */]);
   };
 
   const shipPlacer = (ship) => {
@@ -65,6 +65,7 @@ const battleShip = () => {
         for (let i = letterIndex; i > letterIndex - shipSize; i--) {
           selectedSpots.push(`${letters[i]}${colNum}`);
         }
+        console.log(selectedSpots);
       }
       for (let spot of selectedSpots) {
         for (let elem of gameGrid) {
@@ -195,17 +196,11 @@ const battleShip = () => {
     }
     ship.spaces = selectedSpots;
   };
-  console.log(gameGrid);
   shipPlacer(ships[4]);
-  console.log(gameGrid);
   shipPlacer(ships[3]);
-  console.log(gameGrid);
   shipPlacer(ships[2]);
-  console.log(gameGrid);
   shipPlacer(ships[1]);
-  console.log(gameGrid);
   shipPlacer(ships[0]);
-  console.log(gameGrid);
   console.log(ships);
 };
 battleShip();
